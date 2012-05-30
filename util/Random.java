@@ -12,6 +12,7 @@ public class Random {
 	 * @return The next random boolean value.
 	 */
 	public static boolean nextBoolean() {
+		seed();
 		return random.nextBoolean();
 	}
 
@@ -23,6 +24,7 @@ public class Random {
 	 * @return The generated pseudo-random integer.
 	 */
 	public static int nextInt(final int min, final int max) {
+		seed();
 		if (max < min) {
 			return max + random.nextInt(min - max);
 		}
@@ -37,6 +39,7 @@ public class Random {
 	 * @return The generated pseudo-random double.
 	 */
 	public static double nextDouble(final double min, final double max) {
+		seed();
 		return min + random.nextDouble() * (max - min);
 	}
 
@@ -44,6 +47,7 @@ public class Random {
 	 * @return A generated pseudo-random double between 0.0 (inclusive) and 1.0 (exclusive).
 	 */
 	public static double nextDouble() {
+		seed();
 		return random.nextDouble();
 	}
 
@@ -56,6 +60,7 @@ public class Random {
 	 * @return The generated pseudo-random integer.
 	 */
 	public static int nextGaussian(final int min, final int max, final int sd) {
+		seed();
 		return nextGaussian(min, max, min + (max - min) / 2, sd);
 	}
 
@@ -69,6 +74,7 @@ public class Random {
 	 * @return The generated pseudo-random integer.
 	 */
 	public static int nextGaussian(final int min, final int max, final int mean, final int sd) {
+		seed();
 		if (min == max) {
 			return min;
 		}
@@ -77,5 +83,9 @@ public class Random {
 			rand = (int) (random.nextGaussian() * sd + mean);
 		} while (rand < min || rand >= max);
 		return rand;
+	}
+	
+	private static void seed() {
+		random.setSeed(System.nanoTime());
 	}
 }
